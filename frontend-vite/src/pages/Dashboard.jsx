@@ -94,11 +94,11 @@ const Dashboard = () => {
             </div>
             <div className="flex gap-4">
               <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-secondary"></span>
+                <span className="w-3 h-3 rounded-full bg-emerald-500"></span>
                 <span className="text-[10px] font-bold text-slate-500 uppercase">Entrées</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-primary"></span>
+                <span className="w-3 h-3 rounded-full bg-red-500"></span>
                 <span className="text-[10px] font-bold text-slate-500 uppercase">Sorties</span>
               </div>
             </div>
@@ -109,12 +109,12 @@ const Dashboard = () => {
               <div key={i} className="flex flex-col items-center flex-1 gap-2 group cursor-pointer h-full justify-end">
                 <div className="w-full flex gap-1 items-end h-48 relative">
                   <div 
-                    className="bg-secondary/80 group-hover:bg-secondary w-1/2 rounded-t-sm transition-all" 
+                    className="bg-emerald-500/80 group-hover:bg-emerald-500 w-1/2 rounded-t-sm transition-all" 
                     style={{ height: `${(d.entries / maxVal) * 100}%` }}
                     title={`Entrées: ${d.entries}`}
                   ></div>
                   <div 
-                    className="bg-primary/80 group-hover:bg-primary w-1/2 rounded-t-sm transition-all" 
+                    className="bg-red-500/80 group-hover:bg-red-500 w-1/2 rounded-t-sm transition-all" 
                     style={{ height: `${(d.exits / maxVal) * 100}%` }}
                     title={`Sorties: ${d.exits}`}
                   ></div>

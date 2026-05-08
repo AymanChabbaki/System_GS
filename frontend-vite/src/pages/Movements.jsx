@@ -64,7 +64,7 @@ const Movements = () => {
       Type: m.type,
       Produit: m.product?.name,
       Quantite: m.quantity,
-      Date: new Date(m.movementDate).toLocaleString(),
+      Date: new Date(m.createdAt).toLocaleString(),
       Motif: m.reason
     }));
     exportToCSV(exportData, 'mouvements_stock');
@@ -126,9 +126,9 @@ const Movements = () => {
               ) : filteredMovements.map((m) => (
                 <tr key={m.id} className="hover:bg-slate-50/80 transition-colors">
                   <td className="px-6 py-4">
-                    <span className={`flex items-center gap-2 w-fit px-2 py-1 rounded text-[10px] font-bold uppercase ${m.type === 'ENTRY' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
-                      {m.type === 'ENTRY' ? <ArrowDownLeft size={12} /> : <ArrowUpRight size={12} />}
-                      {m.type === 'ENTRY' ? 'ENTRÉE' : 'SORTIE'}
+                    <span className={`flex items-center gap-2 w-fit px-2 py-1 rounded text-[10px] font-bold uppercase ${m.type.toLowerCase() === 'entry' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+                      {m.type.toLowerCase() === 'entry' ? <ArrowDownLeft size={12} /> : <ArrowUpRight size={12} />}
+                      {m.type.toLowerCase() === 'entry' ? 'ENTRÉE' : 'SORTIE'}
                     </span>
                   </td>
                   <td className="px-6 py-4">
@@ -140,7 +140,7 @@ const Movements = () => {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2 text-slate-500 text-sm">
                       <Calendar size={14} />
-                      {new Date(m.movementDate).toLocaleDateString()}
+                      {new Date(m.createdAt).toLocaleString()}
                     </div>
                   </td>
                   <td className="px-6 py-4">
@@ -171,7 +171,7 @@ const Movements = () => {
               </select>
             </div>
             <div>
-              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 block">Quantité</label>
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Quantité</span>
               <input type="number" name="quantity" value={formData.quantity} onChange={handleInputChange} className="input-field" required />
             </div>
           </div>

@@ -15,8 +15,11 @@ public class StockMovementController {
     @Autowired private StockMovementRepository repository;
     @Autowired private com.systemgs.repositories.ProductRepository productRepository;
     @Autowired private com.systemgs.repositories.UserRepository userRepository;
+    @Autowired private com.systemgs.services.EmailService emailService;
+    @org.springframework.beans.factory.annotation.Value("${app.admin.email}") private String adminEmail;
 
-    @GetMapping public List<StockMovement> getAll() { return repository.findAll(); }
+    @GetMapping     @org.springframework.security.access.prepost.PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+    public List<StockMovement> getAll() { return repository.findAll(); }
 
     @PostMapping
     @org.springframework.security.access.prepost.PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
@@ -51,6 +54,20 @@ public class StockMovementController {
                 product.setQuantity(product.getQuantity() - quantity);
             }
             productRepository.save(product);
+            
+            // Notification logic
+            if (product.getQuantity() <= product.getMinStockThreshold()) {
+                try {
+                    String subject = "🚨 Alerte Stock Bas: " + product.getName();
+                    String text = "L'article " + product.getName() + " (Réf: " + product.getId() + ") a atteint un niveau critique.\n" +
+                                 "Stock actuel: " + product.getQuantity() + " " + (product.getQuantity() <= 1 ? "unité" : "unités") + ".\n" +
+                                 "Seuil configuré: " + product.getMinStockThreshold() + " unités.\n\n" +
+                                 "Veuillez réapprovisionner dès que possible.";
+                    emailService.sendSimpleMessage(adminEmail, subject, text);
+                } catch (Exception e) {
+                    System.err.println("Erreur envoi email: " + e.getMessage());
+                }
+            }
             
             return ResponseEntity.ok(repository.save(movement));
         } catch (Exception e) {
