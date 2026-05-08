@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&family=Inter:wght@400;600&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0D2137;
+  --color-primary-dark: #071321;
+  --color-primary-light: #16365a;
+  
+  --color-secondary: #0F3554;
+  --color-secondary-dark: #0a243a;
+  --color-secondary-light: #185282;
+  
+  --color-accent-red: #8B1A1A;
+  --color-accent-orange: #E8922A;
+  --color-accent-gold: #D4A843;
+  
+  /* Legacy mapping for components using old names */
+  --color-accent-brown: var(--color-accent-red);
+  --color-accent-yellow: var(--color-accent-gold);
+  
+  --color-background: #f8f9ff;
+  --color-surface: #ffffff;
+  --color-surface-dim: #f1f5f9;
+  
+  --font-heading: "Hanken Grotesk", sans-serif;
+  --font-body: Inter, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-slate-900 font-body;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-all active:scale-95 shadow-sm;
+  }
+  .btn-secondary {
+    @apply bg-secondary text-white px-4 py-2 rounded-lg hover:bg-secondary-dark transition-all active:scale-95 shadow-sm;
+  }
+  .card {
+    @apply bg-surface border border-slate-200 rounded-xl shadow-sm p-6;
+  }
+}
