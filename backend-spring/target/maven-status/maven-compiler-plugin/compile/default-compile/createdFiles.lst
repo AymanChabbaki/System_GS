@@ -1,6 +1,5 @@
 com\systemgs\entities\Supplier$SupplierBuilder.class
 com\systemgs\security\WebSecurityConfig.class
-com\systemgs\controllers\ProductController.class
 com\systemgs\entities\Supplier.class
 com\systemgs\controllers\AuthController.class
 com\systemgs\controllers\StockMovementController.class

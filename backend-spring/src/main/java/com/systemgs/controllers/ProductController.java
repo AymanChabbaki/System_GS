@@ -29,8 +29,8 @@ public class ProductController {
         Product product = new Product();
         product.setName(name);
         product.setDescription(description);
-        product.setPurchasePrice(purchasePrice);
-        product.setSalePrice(salePrice);
+        product.setPurchasePrice(java.math.BigDecimal.valueOf(purchasePrice));
+        product.setSalePrice(java.math.BigDecimal.valueOf(salePrice));
         product.setQuantity(quantity);
         product.setMinStockThreshold(minStockThreshold != null ? minStockThreshold : 10);
         
@@ -62,8 +62,8 @@ public class ProductController {
         Product product = productService.getProductById(id);
         product.setName(name);
         product.setDescription(description);
-        product.setPurchasePrice(purchasePrice);
-        product.setSalePrice(salePrice);
+        product.setPurchasePrice(java.math.BigDecimal.valueOf(purchasePrice));
+        product.setSalePrice(java.math.BigDecimal.valueOf(salePrice));
         product.setQuantity(quantity);
         product.setMinStockThreshold(minStockThreshold != null ? minStockThreshold : 10);
         
