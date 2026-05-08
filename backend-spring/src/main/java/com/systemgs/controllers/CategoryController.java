@@ -10,11 +10,19 @@ import java.util.List;
 public class CategoryController {
     @Autowired private CategoryService categoryService;
     @GetMapping public List<Category> getAll() { return categoryService.getAllCategories(); }
-    @PostMapping public Category create(@RequestBody Category category) { return categoryService.createCategory(category); }
-    @PutMapping("/{id}") public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category details) {
+    @PostMapping 
+    @org.springframework.security.access.prepost.PreAuthorize("hasRole('ADMIN')")
+    public Category create(@RequestBody Category category) { return categoryService.createCategory(category); }
+    
+    @PutMapping("/{id}") 
+    @org.springframework.security.access.prepost.PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category details) {
         return ResponseEntity.ok(categoryService.updateCategory(id, details));
     }
-    @DeleteMapping("/{id}") public ResponseEntity<?> delete(@PathVariable Long id) {
+    
+    @DeleteMapping("/{id}") 
+    @org.springframework.security.access.prepost.PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         categoryService.deleteCategory(id); return ResponseEntity.ok().build();
     }
 }

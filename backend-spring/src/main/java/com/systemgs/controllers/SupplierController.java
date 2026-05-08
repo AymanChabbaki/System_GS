@@ -9,6 +9,11 @@ import java.util.List;
 public class SupplierController {
     @Autowired private SupplierService service;
     @GetMapping public List<Supplier> getAll() { return service.getAll(); }
-    @PostMapping public Supplier create(@RequestBody Supplier s) { return service.save(s); }
-    @DeleteMapping("/{id}") public void delete(@PathVariable Long id) { service.delete(id); }
+    @PostMapping 
+    @org.springframework.security.access.prepost.PreAuthorize("hasRole('ADMIN')")
+    public Supplier create(@RequestBody Supplier s) { return service.save(s); }
+    
+    @DeleteMapping("/{id}") 
+    @org.springframework.security.access.prepost.PreAuthorize("hasRole('ADMIN')")
+    public void delete(@PathVariable Long id) { service.delete(id); }
 }
